@@ -1,15 +1,14 @@
+using AmitdPres;
 using Microsoft.EntityFrameworkCore;
-using AmitdPres; // Asegúrate de cambiar esto por el namespace correcto para tu proyecto
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuración de servicios para Blazor Server
-builder.Services.AddRazorComponents();
+// Configuración de servicios para Razor Pages
 builder.Services.AddDbContext<AmitdPresContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Añade servicios de Blazor
-builder.Services.AddServerSideBlazor();
+// Añade servicios para Razor Pages
+builder.Services.AddRazorPages();
 
 // Construcción de la aplicación
 var app = builder.Build();
@@ -22,14 +21,14 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error");
-    app.UseHsts();
+    app.UseHsts(); // Añade HSTS en producción
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+// Configura Razor Pages
+app.MapRazorPages();
 
 app.Run();
