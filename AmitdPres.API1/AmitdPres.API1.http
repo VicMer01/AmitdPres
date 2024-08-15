@@ -1,0 +1,6 @@
+@AmitdPres.API1_HostAddress = http://localhost:5250
+
+GET {{AmitdPres.API1_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
